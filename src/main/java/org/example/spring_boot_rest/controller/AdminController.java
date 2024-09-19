@@ -36,20 +36,20 @@ public class AdminController {
         return "admin-page";
     }
 
-    @GetMapping("")
-    public String users(Model model) {
-        User currentUser = userService.getAuthenticatedUser();
-        model.addAttribute("currentUser", currentUser);
-
-        Set<Role> roles = roleService.findAll();
-        model.addAttribute("roles", roles);
-
-        List<User> users = userService.listUsers();
-        model.addAttribute("users", users);
-
-        model.addAttribute("user", new User());
-        return "admin-page";
-    }
+//    @GetMapping("")
+//    public String users(Model model) {
+//        User currentUser = userService.getAuthenticatedUser();
+//        model.addAttribute("currentUser", currentUser);
+//
+//        Set<Role> roles = roleService.findAll();
+//        model.addAttribute("roles", roles);
+//
+//        List<User> users = userService.listUsers();
+//        model.addAttribute("users", users);
+//
+//        model.addAttribute("user", new User());
+//        return "admin-page";
+//    }
 
     @GetMapping("/user-form-add")
     public String showUserForm(Model model) {
