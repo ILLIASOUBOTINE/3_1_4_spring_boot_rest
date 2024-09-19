@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title>Admin panel</title>
+
+    <!-- WebJars Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.1/css/bootstrap.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/my_styles.css">
+</head>
+<body>
+<div class="d-flex flex-column bg-light">
+
+    <!-- Вставка фрагмента шапки -->
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="d-flex flex-row">
+        <!-- Вставка фрагмента навигации по ролям -->
+        <aside class="sidebar bg-white pt-4" th:insert="fragments/sidebar :: sidebar"></aside>
+
+        <!-- Фрагмент панели администратора -->
+        <div id="admin-panel" class="flex-grow-1">
+            <div th:insert="fragments/admin-panel :: admin-panel"></div>
+        </div>
+
+        <!-- Фрагмент информации пользователя -->
+        <div id="user-info" class="flex-grow-1" style="display: none;">
+            <div th:insert="fragments/user-information :: user-info"></div>
+        </div>
+    </div>
+</div >
+<!-- WebJars Bootstrap JS -->
+<script th:src="@{/webjars/bootstrap/5.3.1/js/bootstrap.bundle.min.js}"></script>
+
+<script th:src="@{/js/rest-admin.js}"></script>
+
+</body>
+</html>

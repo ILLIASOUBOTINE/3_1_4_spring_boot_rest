@@ -1,0 +1,42 @@
+<div th:fragment="admin-panel" class="d-flex flex-column main-content m-4">
+
+    <h1>Admin panel</h1>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active main-content-nav" aria-current="page" id="users_tab"
+                onclick="showSectionMainContent(this)"
+                href="#" >
+                Users table
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link main-content-nav" id="new_user_tab"
+                onclick="showSectionMainContent(this)"
+                href="#">
+                New User
+            </a>
+        </li>
+    </ul>
+
+    <div id="users_section" >
+        <h5 class="border border-light-secondary p-2 mb-0">All users</h5>
+        <!-- Вставка фрагмента таблица пользователей-->
+        <section  class="d-flex justify-content-center align-items-center border border-light-secondary bg-white py-4" th:insert="fragments/table-users :: table-users"></section>
+    </div>
+
+    <div id="new_user_section" class="border border-light-secondary" style="display: none;">
+        <h5 class="border border-light-secondary p-2 mb-0">Add new user</h5>
+        <div class="d-flex flex-column justify-content-center align-items-center border border-light-secondary bg-white py-4">
+
+            <!-- Вставка фрагмента формы нового пользователя-->
+            <div class="form-container" th:insert="fragments/form-add-user :: form-add-user"></div>
+        </div>
+    </div>
+
+    <!-- Вставка фрагмента модального окна для удаления пользователя -->
+    <section th:insert="fragments/modal-delete-user :: modal-delete-user"></section>
+
+    <!-- Вставка фрагмента модального окна для редактирования пользователя -->
+    <section th:insert="fragments/modal-edit-user :: modal-edit-user"></section>
+</div>

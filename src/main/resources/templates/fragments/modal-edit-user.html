@@ -1,0 +1,50 @@
+<div th:fragment="modal-edit-user" id="modalEditUser" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <form  id="editUserForm">
+                <div class="modal-body text-center">
+                    <div class="mb-3">
+                        <label for="id_edit" class="form-label fw-semibold">ID</label>
+                        <input type="hidden" id="id_edit_hidden" name="id" />
+                        <input type="text" id="id_edit" name="id"  class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="firstName_edit" class="form-label fw-semibold">First name</label>
+                        <input type="text" id="firstName_edit" name="firstName"  class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName_edit" class="form-label fw-semibold">Last name</label>
+                        <input type="text" id="lastName_edit" name="lastName"  class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="age_edit" class="form-label fw-semibold">Age</label>
+                        <input type="number" id="age_edit" name="age"  class="form-control" required min="0"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email_edit" class="form-label fw-semibold">Email</label>
+                        <input type="email" id="email_edit" name="email"  class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="password_edit" class="form-label fw-semibold">Password</label>
+                        <input type="password" id="password_edit" name="password"  class="form-control"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="roles1_edit" class="form-label fw-semibold">Roles</label>
+                        <select id="roles1_edit" name="roles1" multiple class="form-select" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="btnEditUser" class="btn btn-primary">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

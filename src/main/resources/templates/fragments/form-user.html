@@ -1,0 +1,33 @@
+<form class="text-center" th:fragment="form-user" th:action="@{|/admin/${action}|}" method="post">
+        <div class="mb-3">
+            <label for="firstName" class="form-label fw-semibold">First name</label>
+            <input type="text" id="firstName" th:field="${user.firstName}" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label fw-semibold">Last name</label>
+            <input type="text" id="lastName" th:field="${user.lastName}" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label fw-semibold">Age</label>
+            <input type="number" id="age" th:field="${user.age}" class="form-control" required min="0"/>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Email</label>
+            <input type="email" id="email" th:field="${user.email}" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label fw-semibold">Password</label>
+            <input type="password" id="password" th:field="${user.password}" class="form-control" required  />
+        </div>
+
+        <div class="mb-3">
+            <label for="roles1" class="form-label fw-semibold">Roles</label>
+            <select id="roles1" name="roles1" multiple class="form-select" required>
+                <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}">Role</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-success" th:text="${buttonText}">title btn</button>
+        </div>
+</form>

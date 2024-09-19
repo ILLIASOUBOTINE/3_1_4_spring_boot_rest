@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+
+    <!-- WebJars Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.1/css/bootstrap.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/my_styles.css">
+
+</head>
+<body>
+<div class="d-flex flex-column bg-light">
+
+    <!-- Вставка фрагмента шапки -->
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="d-flex flex-row">
+
+        <!-- Вставка фрагмента навигации по ролям -->
+        <aside class="sidebar bg-white pt-4" th:insert="fragments/sidebar :: sidebar"></aside>
+
+        <div class="d-flex flex-column main-content m-4">
+
+            <h1>Admin panel</h1>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link"  id="users-tab" th:href="@{/admin}" >Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" id="new-user-tab" th:href="@{/admin/user-form-add}" >New User</a>
+                </li>
+            </ul>
+
+            <div class="border border-light-secondary" id="new-user-section" >
+                <h5 class="border border-light-secondary p-2 mb-0">Add new user</h5>
+                <div class="d-flex flex-column justify-content-center align-items-center border border-light-secondary bg-white py-4">
+                    <!-- Вставка фрагмента сообщение о ошибке-->
+                    <div class="form-container" th:insert="fragments/error-message :: error-message"></div>
+
+                    <!-- Вставка фрагмента формы нового пользователя-->
+                    <div class="form-container" th:insert="fragments/form-user :: form-user"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div >
+<!-- WebJars Bootstrap JS -->
+<script th:src="@{/webjars/bootstrap/5.3.1/js/bootstrap.bundle.min.js}"></script>
+
+
+</body>
+</html>

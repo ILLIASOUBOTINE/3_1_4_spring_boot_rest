@@ -1,0 +1,14 @@
+<div th:fragment="sidebar" >
+    <th:block th:each="role : ${currentUser.roles}">
+        <ul class="nav flex-column">
+            <li class="nav-item ">
+                <a class="nav-link sidebar-nav"
+                   th:attr="data-role=${role.name}"
+                    onclick="showSectionRoles(this)"
+                    href="#"
+                   th:text="${role.name}"
+                >Role</a>
+            </li>
+        </ul>
+    </th:block>
+</div>

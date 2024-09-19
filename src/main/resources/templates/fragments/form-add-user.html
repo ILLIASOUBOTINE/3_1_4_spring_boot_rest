@@ -1,0 +1,32 @@
+<form th:fragment="form-add-user"  class="text-center">
+        <div class="mb-3">
+            <label for="firstName_add" class="form-label fw-semibold">First name</label>
+            <input type="text" id="firstName_add" name="firstName" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="lastName_add" class="form-label fw-semibold">Last name</label>
+            <input type="text" id="lastName_add" name="lastName" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="age_add" class="form-label fw-semibold">Age</label>
+            <input type="number" id="age_add" name="age" class="form-control" required min="0"/>
+        </div>
+        <div class="mb-3">
+            <label for="email_add" class="form-label fw-semibold">Email</label>
+            <input type="email" id="email_add" name="email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="password_add" class="form-label fw-semibold">Password</label>
+            <input type="password" id="password_add" name="password" class="form-control" required  />
+        </div>
+
+        <div class="mb-3">
+            <label for="roles1_add" class="form-label fw-semibold">Roles</label>
+            <select id="roles1_add" name="roles1" multiple class="form-select" required>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="button" id="btnAddNewUser" class="btn btn-success" >Add new user</button>
+        </div>
+</form>

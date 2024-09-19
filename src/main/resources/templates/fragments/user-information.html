@@ -1,0 +1,32 @@
+<div th:fragment="user-info" class="d-flex flex-column main-content m-4">
+    <h1>User information-page</h1>
+    <h5 class="border border-light-secondary p-2 mb-0">About user</h5>
+    <table class="table table-hover">
+        <thead>
+        <tr class="fw-normal">
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Email</th>
+            <th scope="col">Roles</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            <tr class="text-secondary" >
+                <th scope="row" th:text="${currentUser.id}"></th>
+                <td th:text="${currentUser.firstName}"></td>
+                <td th:text="${currentUser.lastName}"></td>
+                <td th:text="${currentUser.age}"></td>
+                <td th:text="${currentUser.email}"></td>
+                <td>
+                    <span th:each="role : ${currentUser.roles}" th:text="${role.name}" class="me-2" ></span>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+

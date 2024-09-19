@@ -1,0 +1,25 @@
+.border-light-secondary {
+    border-color: #dcdcdc;
+}
+
+.form-container {
+    width: 30%;
+}
+
+.sidebar {
+    width: 20%;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.active-link {
+    color: white !important;
+    background-color: blue;
+}
+
+.sidebar-nav {
+    text-decoration: none;
+}
