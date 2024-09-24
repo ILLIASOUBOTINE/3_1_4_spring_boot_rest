@@ -23,3 +23,13 @@
 .sidebar-nav {
     text-decoration: none;
 }
+
+.input-login::placeholder {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.card-login {
+    max-width: 400px;
+    border: none !important;
+}

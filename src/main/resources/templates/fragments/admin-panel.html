@@ -5,14 +5,14 @@
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active main-content-nav" aria-current="page" id="users_tab"
-                onclick="showSectionMainContent(this)"
+                onclick="showSectionMainContent(this); event.preventDefault();"
                 href="#" >
                 Users table
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link main-content-nav" id="new_user_tab"
-                onclick="showSectionMainContent(this)"
+                onclick="showSectionMainContent(this); event.preventDefault();"
                 href="#">
                 New User
             </a>

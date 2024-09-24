@@ -1,12 +1,73 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetchUsers();
-    const links = document.querySelectorAll('.sidebar-nav');
-    links.forEach(link => {
-        if (link.getAttribute('data-role') === 'ROLE_ADMIN') {
-            link.classList.add('active-link');
-        }
-    });
+    fetchUserData();
 });
+
+
+////////////////////
+
+function fetchUserData() {
+    fetch('/api/user/auth')
+        .then(response => response.json())
+        .then(currentUser => {
+            const userInfoElement = document.getElementById('userInfoHeader');
+            userInfoElement.innerHTML = `
+                <span class="fw-bold">${currentUser.email}</span>
+                <span>with roles: </span>
+                ${currentUser.roles.map(role => `<span class="fw-normal me-2">${role.name}</span>`).join('')}
+            `;
+
+            const roleList = document.getElementById('userRoleList');
+            roleList.innerHTML = '';
+
+            currentUser.roles.forEach(role => {
+                const listItem = document.createElement('li');
+                listItem.className = 'nav-item';
+                listItem.innerHTML = `
+                    <a class="nav-link sidebar-nav"
+                       data-role="${role.name}"
+                       onclick="showSectionRoles(this); event.preventDefault();"
+                       href="#">
+                        ${role.name}
+                    </a>
+                `;
+                roleList.appendChild(listItem);
+            });
+
+            const userTableBody = document.getElementById('userInfoPage');
+            userTableBody.innerHTML = `
+                    <tr class="text-secondary">
+                        <th scope="row">${currentUser.id}</th>
+                        <td>${currentUser.firstName}</td>
+                        <td>${currentUser.lastName}</td>
+                        <td>${currentUser.age}</td>
+                        <td>${currentUser.email}</td>
+                        <td>
+                            ${currentUser.roles.map(role => `<span class="me-2">${role.name}</span>`).join('')}
+                        </td>
+                    </tr>
+                `;
+
+            if (currentUser.roles.some(role => role.name === 'ROLE_ADMIN')) {
+                const links = document.querySelectorAll('.sidebar-nav');
+                links.forEach(link => {
+                    if (link.getAttribute('data-role') === 'ROLE_ADMIN') {
+                        link.classList.add('active-link');
+                    }
+                });
+                switchSectionByRole('ROLE_ADMIN');
+                fetchUsers();
+            } else if (currentUser.roles.length === 1 && currentUser.roles.some(role => role.name === 'ROLE_USER')) {
+                const links = document.querySelectorAll('.sidebar-nav');
+                links.forEach(link => {
+                    if (link.getAttribute('data-role') === 'ROLE_USER') {
+                        link.classList.add('active-link');
+                    }
+                });
+                switchSectionByRole('ROLE_USER');
+            }
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+}
 
 ///////////////////////
 
@@ -48,7 +109,7 @@ function fetchUsers() {
 
 async function fetchRoles() {
     try {
-        const response = await fetch('/api/roles'); // Замените на ваш реальный путь к API
+        const response = await fetch('/api/roles');
         if (!response.ok) {
             throw new Error('Failed to fetch roles');
         }
@@ -117,7 +178,7 @@ function saveEditedUser(userId) {
         password: document.getElementById('password_edit').value,
         roles: getSelectedRoles('roles1_edit')
     };
-    console.log(updatedUser);
+
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
@@ -223,7 +284,7 @@ function addNewUser() {
         password: document.getElementById('password_add').value,
         roles: getSelectedRoles('roles1_add')
     };
-    console.log(newUser);
+
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
@@ -240,6 +301,11 @@ function addNewUser() {
         .then((response) => {
             if (response.ok) {
                 fetchUsers();
+                document.getElementById('firstName_add').value = '';
+                document.getElementById('lastName_add').value = '';
+                document.getElementById('age_add').value = '';
+                document.getElementById('email_add').value = '';
+                document.getElementById('password_add').value = '';
                 showSectionMainContent(usersTab);
             } else {
                 throw new Error(`Failed to add new user: ${response.status}`);
@@ -297,12 +363,15 @@ function showSectionMainContent(navElement) {
 
 function showSectionRoles(navElement) {
     const roleName = navElement.getAttribute('data-role');
-
     // Обновить активное меню
     const links = document.querySelectorAll('.sidebar-nav');
     links.forEach(link => {link.classList.remove('active-link')});
     navElement.classList.add('active-link');
 
+    switchSectionByRole(roleName);
+}
+
+function switchSectionByRole(roleName) {
     // Показать соответствующую секцию
     if (roleName === 'ROLE_ADMIN') {
         document.getElementById('admin-panel').style.display = 'block';

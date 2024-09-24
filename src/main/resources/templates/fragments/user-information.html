@@ -13,17 +13,7 @@
 
         </tr>
         </thead>
-        <tbody>
-            <tr class="text-secondary" >
-                <th scope="row" th:text="${currentUser.id}"></th>
-                <td th:text="${currentUser.firstName}"></td>
-                <td th:text="${currentUser.lastName}"></td>
-                <td th:text="${currentUser.age}"></td>
-                <td th:text="${currentUser.email}"></td>
-                <td>
-                    <span th:each="role : ${currentUser.roles}" th:text="${role.name}" class="me-2" ></span>
-                </td>
-            </tr>
+        <tbody id="userInfoPage">
 
         </tbody>
     </table>

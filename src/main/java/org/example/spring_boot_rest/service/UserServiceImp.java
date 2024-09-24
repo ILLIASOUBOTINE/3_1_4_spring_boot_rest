@@ -99,26 +99,7 @@ public class UserServiceImp implements UserService{
       return userDao.findByEmail(email);
    }
 
-   @Override
-   public void registerUser(User user, List<String> roles) {
-      // Проверка существования пользователя
-      if (userDao.findByEmail(user.getEmail()) != null) {
-         throw new IllegalArgumentException("User with this email already exists.");
-      }
 
-      // Преобразование строковых ролей в объекты Role
-      Set<Role> userRoles = roles.stream()
-              .map(roleService::findByName)
-              .filter(Objects::nonNull)
-              .collect(Collectors.toSet());
-
-      // Устанавливаем роли и шифруем пароль
-      user.setRoles(userRoles);
-      user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-      // Сохраняем пользователя
-      userDao.add(user);
-   }
 
    @Override
    public User getAuthenticatedUser() {

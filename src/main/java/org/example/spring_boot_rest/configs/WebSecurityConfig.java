@@ -16,12 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    private final SuccessUserHandler successUserHandler;
     private final UserDetailsService userDetailsService;
 
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler,UserDetailsService userDetailsService) {
-        this.successUserHandler = successUserHandler;
+    public WebSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -29,22 +27,16 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/webjars/**", "/css/**", "/js/**", "/login", "/", "/index", "/register" ).permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/**").hasRole("ADMIN")
-                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/webjars/**", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")  // Указываем путь к вашей странице логина
-                        .usernameParameter("email")  // Указываем, что для аутентификации используем поле "email"
-                        .passwordParameter("password")  // Поле для пароля
-                        .successHandler(successUserHandler)
-                        .permitAll()
+                        .permitAll() // Разрешаем доступ к стандартной форме логина для всех
+                        .defaultSuccessUrl("/", true) // Перенаправляем на index.html после успешного входа
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );
 
